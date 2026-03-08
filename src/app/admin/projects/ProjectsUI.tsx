@@ -25,7 +25,7 @@ export default function ProjectsUI({ initialProjects }: { initialProjects: any[]
     e.preventDefault();
     setLoading(true);
     const formData = new FormData(e.target);
-    const data = Object.fromEntries(formData.entries());
+    const data: any = Object.fromEntries(formData.entries());
     
     // Auto-generate a system ID like PRJ-8042
     data.systemId = `PRJ-${Math.floor(1000 + Math.random() * 9000)}`;
@@ -51,7 +51,7 @@ export default function ProjectsUI({ initialProjects }: { initialProjects: any[]
     e.preventDefault();
     setLoading(true);
     const formData = new FormData(e.target);
-    const data = Object.fromEntries(formData.entries());
+    const data: any = Object.fromEntries(formData.entries());
 
     try {
       const res = await fetch(`/api/admin/projects/${currentProject.id}`, {
