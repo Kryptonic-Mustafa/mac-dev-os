@@ -72,7 +72,7 @@ export default function Loader({ onComplete }: { onComplete?: () => void }) {
     .to(backgroundRef.current, { scale: 2, opacity: 0, duration: 1, ease: "power3.in" }, "-=1.3")
     .set(containerRef.current, { display: "none" });
 
-    return () => tl.kill(); // Cleanup
+    return () => { tl.kill(); }; // Cleanup
   }, [onComplete]);
 
   return (
