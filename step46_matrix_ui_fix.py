@@ -1,4 +1,19 @@
-"use client";
+import os
+import time
+from pathlib import Path
+
+PROJECT_PATH = Path.cwd()
+
+def print_status(message):
+    print(f"\n[🚀 M.A.C.DevOS UI Patch] {message}...")
+    time.sleep(0.5)
+
+def upgrade_matrix_ui():
+    print_status("Injecting full Add/Edit/Delete capabilities into Matrix")
+    ui_path = PROJECT_PATH / "src/app/admin/projects/ProjectsUI.tsx"
+    
+    if ui_path.exists():
+        ui_content = """"use client";
 import { useState } from 'react';
 import Swal from 'sweetalert2';
 import { Trash2, Edit3, X, Save, Loader2, Github, Globe, PlusSquare } from 'lucide-react';
@@ -204,3 +219,12 @@ export default function ProjectsUI({ initialProjects }: { initialProjects: any[]
     </div>
   );
 }
+"""
+        with open(ui_path, "w", encoding="utf-8") as f:
+            f.write(ui_content)
+        print_status("UI Matrix Successfully Upgraded")
+    else:
+        print_status("Error: UI Matrix file not found.")
+
+if __name__ == "__main__":
+    upgrade_matrix_ui()
