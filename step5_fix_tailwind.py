@@ -1,4 +1,24 @@
-@import "tailwindcss";
+import os
+import time
+from pathlib import Path
+
+PROJECT_PATH = Path.cwd()
+
+def print_status(message):
+    print(f"\n[🔧 M.A.C.DevOS System Patch] {message}...")
+    time.sleep(0.5)
+
+def fix_tailwind_v4():
+    print_status("Detecting Tailwind v4 Environment")
+
+    # 1. Delete the obsolete Tailwind v3 config file
+    old_config = PROJECT_PATH / "tailwind.config.ts"
+    if old_config.exists():
+        os.remove(old_config)
+        print("  ✓ Removed obsolete tailwind.config.ts")
+
+    # 2. Rewrite globals.css with Tailwind v4 syntax
+    globals_css_content = """@import "tailwindcss";
 
 @theme {
   /* Colors mapped directly to our CSS Variables */
@@ -30,7 +50,7 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
-    /* overflow-x removed for GSAP pin compatibility */
+    overflow-x: hidden;
     transition: background-color 0.5s ease, color 0.5s ease;
   }
 
@@ -49,13 +69,14 @@
     background: var(--color-primary);
   }
 }
+"""
+    
+    css_path = PROJECT_PATH / "src/app/globals.css"
+    with open(css_path, "w", encoding="utf-8") as f:
+        f.write(globals_css_content)
+    print("  ✓ Upgraded globals.css to Tailwind v4 @theme engine")
+    
+    print_status("Patch applied successfully")
 
-/* Custom Cursor Override */
-.cursor-none, .cursor-none * {
-  cursor: none !important;
-}
-
-
-/* ADMIN MODE ISOLATION */
-html.admin-mode header, html.admin-mode footer, html.admin-mode nav.fixed { display: none !important; }
-
+if __name__ == "__main__":
+    fix_tailwind_v4()

@@ -1,0 +1,60 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String   
+  createdAt DateTime @default(now())
+}
+
+model Project {
+  id          String   @id @default(uuid())
+  systemId    String   @unique 
+  title       String
+  description String   @db.Text
+  tech        String   
+  repoLink    String?
+  liveLink    String?
+  order       Int      @default(0)
+  isVisible   Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Message {
+  id        String   @id @default(uuid())
+  name      String
+  email     String
+  payload   String   @db.Text
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model SystemSettings {
+  id           String   @id @default("master_config")
+  siteName     String   @default("M.A.C.DevOS")
+  logoUrl      String?  
+  faviconUrl   String?
+  contactEmail String?  @default("macdevos53@gmail.com")
+  socialLinks  Json?    // Storing as [{ platform: 'github', url: '...' }]
+  updatedAt    DateTime @updatedAt
+}
+
+model Review {
+  id        String   @id @default(uuid())
+  logId     String   @unique 
+  client    String
+  role      String
+  content   String   @db.Text
+  status    String   @default("VERIFIED")
+  isVisible Boolean  @default(true)
+  priority  Int      @default(0)
+  createdAt DateTime @default(now())
+}
