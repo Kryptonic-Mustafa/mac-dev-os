@@ -122,8 +122,8 @@ export default function BackgroundFX() {
     };
 
     window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('touchmove', (e) => handleMouseMove(e.touches[0]), { passive: true });
-    window.addEventListener('touchstart', (e) => handleMouseMove(e.touches[0]), { passive: true });
+    window.addEventListener('touchmove', (e) => handleMouseMove(e.touches[0] as any), { passive: true });
+    window.addEventListener('touchstart', (e) => handleMouseMove(e.touches[0] as any), { passive: true });
     window.addEventListener('mouseleave', handleMouseLeave);
     window.addEventListener('resize', handleResize);
     window.addEventListener('keydown', handleKeyDown);
