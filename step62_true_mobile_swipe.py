@@ -1,4 +1,21 @@
-"use client";
+import os
+import time
+from pathlib import Path
+
+PROJECT_PATH = Path.cwd()
+
+def print_status(message):
+    print(f"\n[🔓 M.A.C.DevOS Unlocked] {message}...")
+    time.sleep(0.5)
+
+def deploy_true_swipe():
+    print_status("Releasing touch locks and injecting mobile swipe indicators")
+    adv_path = PROJECT_PATH / "src/components/sections/Advantages.tsx"
+    
+    if adv_path.exists():
+        # We are rewriting the file to ensure the ArrowRight icon is imported 
+        # and all touch-blocking CSS is eradicated.
+        adv_content = """"use client";
 import { useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -90,3 +107,12 @@ export default function Advantages() {
     </section>
   );
 }
+"""
+        with open(adv_path, "w", encoding="utf-8") as f:
+            f.write(adv_content)
+        print_status("Mobile swiping restrictions removed. Visual cues added.")
+    else:
+        print_status("Error: Advantages.tsx not found.")
+
+if __name__ == "__main__":
+    deploy_true_swipe()
