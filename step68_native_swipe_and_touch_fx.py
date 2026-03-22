@@ -1,4 +1,22 @@
-"use client";
+import os
+import time
+import re
+from pathlib import Path
+
+PROJECT_PATH = Path.cwd()
+
+def print_status(message):
+    print(f"\n[📱 M.A.C.DevOS Touch UX] {message}...")
+    time.sleep(0.5)
+
+def deploy_native_ux():
+    # ---------------------------------------------------------
+    # PART 1: ADVANTAGES SLIDER (Native CSS Snap + Scroll Sync)
+    # ---------------------------------------------------------
+    print_status("Converting Advantages to Native CSS Snap (Zero Scroll Trapping)")
+    adv_path = PROJECT_PATH / "src/components/sections/Advantages.tsx"
+    
+    final_adv_content = """"use client";
 import { useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -126,3 +144,33 @@ export default function Advantages() {
     </section>
   );
 }
+"""
+    if adv_path.exists():
+        with open(adv_path, "w", encoding="utf-8") as f:
+            f.write(final_adv_content)
+
+    # ---------------------------------------------------------
+    # PART 2: BACKGROUND FX (Upgrading to Pointer Events)
+    # ---------------------------------------------------------
+    print_status("Upgrading Canvas Background to respond to mobile touch events")
+    bg_path = PROJECT_PATH / "src/components/ui/BackgroundFX.tsx"
+    
+    if bg_path.exists():
+        with open(bg_path, "r", encoding="utf-8") as f:
+            bg_content = f.read()
+
+        # Replace 'mousemove' with 'pointermove' safely
+        # Pointer events automatically track mouse, touch, and stylus!
+        bg_content = re.sub(r"addEventListener\(['\"]mousemove['\"]", "addEventListener('pointermove'", bg_content)
+        bg_content = re.sub(r"removeEventListener\(['\"]mousemove['\"]", "removeEventListener('pointermove'", bg_content)
+
+        with open(bg_path, "w", encoding="utf-8") as f:
+            f.write(bg_content)
+        print_status("Canvas updated to Universal Pointer Tracking.")
+    else:
+        print_status("Warning: BackgroundFX.tsx not found. Skipping canvas patch.")
+
+    print_status("UX Patch Complete. Ready for deployment.")
+
+if __name__ == "__main__":
+    deploy_native_ux()
