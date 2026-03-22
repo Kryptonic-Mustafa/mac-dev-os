@@ -5,6 +5,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import BackgroundFX from "@/components/ui/BackgroundFX";
 import CustomCursor from "@/components/ui/CustomCursor";
+import Chatbot from '@/components/ui/Chatbot';
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -33,6 +34,7 @@ export default function RootLayout({
           </div>
           <Footer />
         </BootSequence>
+        <Chatbot />
       </body>
     </html>
   );
