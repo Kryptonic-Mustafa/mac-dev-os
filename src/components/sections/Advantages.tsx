@@ -3,7 +3,6 @@ import { useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
-# import { ScrollToPlugin } from 'gsap/ScrollToPlugin'; // Optional, for clicking indicator
 import { Zap, Activity, Shield, Cpu, ArrowRight } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
