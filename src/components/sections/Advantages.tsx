@@ -72,7 +72,7 @@ export default function Advantages() {
             duration: 0.5,
             overwrite: 'auto',
             onUpdate: () => {
-              const currentProgress = gsap.utils.normalize(0, -maxScroll, sliderRef.current?.style.transform.match(/translate\(([-\d.]+)/)?.[1] || 0);
+              const currentProgress = gsap.utils.normalize(0, -maxScroll, parseFloat(sliderRef.current?.style.transform.match(/translate\(([-\d.]+)/)?.[1] || '0'));
               setProgress(Math.round(currentProgress * 100));
             }
           });
