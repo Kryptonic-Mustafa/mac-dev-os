@@ -2,17 +2,11 @@
 import { useState, useEffect, useRef } from 'react';
 
 export default function CustomCursor() {
-  const [isTouch, setIsTouch] = useState(false);
   const [mounted, setMounted] = useState(false);
   const cursorDot = useRef<HTMLDivElement>(null);
   const cursorRing = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (navigator.maxTouchPoints > 0) {
-      setIsTouch(true);
-      return;
-    }
-
     setMounted(true);
     const moveCursor = (e: MouseEvent) => {
       if (cursorDot.current && cursorRing.current) {
@@ -24,12 +18,13 @@ export default function CustomCursor() {
     return () => window.removeEventListener('mousemove', moveCursor);
   }, []);
 
-  if (!mounted || isTouch) return null;
+  if (!mounted) return null;
 
   return (
-    <>
-      <div ref={cursorDot} className="fixed top-0 left-0 w-1.5 h-1.5 bg-primary rounded-full pointer-events-none z-[999] -translate-x-1/2 -translate-y-1/2 transition-transform duration-75 ease-out" />
-      <div ref={cursorRing} className="fixed top-0 left-0 w-8 h-8 border border-primary/30 rounded-full pointer-events-none z-[998] -translate-x-1/2 -translate-y-1/2 transition-transform duration-300 ease-out" />
-    </>
+    // The 'hidden md:block' ensures this entire DOM tree is vaporized on mobile screens
+    <div className="hidden md:block pointer-events-none">
+      <div ref={cursorDot} className="fixed top-0 left-0 w-1.5 h-1.5 bg-primary rounded-full z-[999] -translate-x-1/2 -translate-y-1/2 transition-transform duration-75 ease-out" />
+      <div ref={cursorRing} className="fixed top-0 left-0 w-8 h-8 border border-primary/30 rounded-full z-[998] -translate-x-1/2 -translate-y-1/2 transition-transform duration-300 ease-out" />
+    </div>
   );
 }

@@ -1,4 +1,19 @@
-"use client";
+import os
+import time
+from pathlib import Path
+
+PROJECT_PATH = Path.cwd()
+
+def print_status(message):
+    print(f"\n[📱 M.A.C.DevOS Touch UI] {message}...")
+    time.sleep(0.5)
+
+def fix_mobile_slider():
+    # 1. FIX THE ADVANTAGES SLIDER (Native Swipe on Mobile, GSAP on Desktop)
+    print_status("Rewriting Advantages.tsx for Native Mobile Swiping (GSAP matchMedia)")
+    adv_path = PROJECT_PATH / "src/components/sections/Advantages.tsx"
+    
+    adv_content = """"use client";
 import { useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -86,3 +101,49 @@ export default function Advantages() {
     </section>
   );
 }
+"""
+    with open(adv_path, "w", encoding="utf-8") as f:
+        f.write(adv_content)
+
+    # 2. FIX THE SPIDER CURSOR (CSS-based mobile hiding)
+    print_status("Hardcoding Cursor removal on Mobile devices")
+    cursor_path = PROJECT_PATH / "src/components/ui/CustomCursor.tsx"
+    
+    cursor_content = """"use client";
+import { useState, useEffect, useRef } from 'react';
+
+export default function CustomCursor() {
+  const [mounted, setMounted] = useState(false);
+  const cursorDot = useRef<HTMLDivElement>(null);
+  const cursorRing = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setMounted(true);
+    const moveCursor = (e: MouseEvent) => {
+      if (cursorDot.current && cursorRing.current) {
+        cursorDot.current.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+        cursorRing.current.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+      }
+    };
+    window.addEventListener('mousemove', moveCursor);
+    return () => window.removeEventListener('mousemove', moveCursor);
+  }, []);
+
+  if (!mounted) return null;
+
+  return (
+    // The 'hidden md:block' ensures this entire DOM tree is vaporized on mobile screens
+    <div className="hidden md:block pointer-events-none">
+      <div ref={cursorDot} className="fixed top-0 left-0 w-1.5 h-1.5 bg-primary rounded-full z-[999] -translate-x-1/2 -translate-y-1/2 transition-transform duration-75 ease-out" />
+      <div ref={cursorRing} className="fixed top-0 left-0 w-8 h-8 border border-primary/30 rounded-full z-[998] -translate-x-1/2 -translate-y-1/2 transition-transform duration-300 ease-out" />
+    </div>
+  );
+}
+"""
+    with open(cursor_path, "w", encoding="utf-8") as f:
+        f.write(cursor_content)
+
+    print_status("Touch UI Matrix successfully deployed.")
+
+if __name__ == "__main__":
+    fix_mobile_slider()
