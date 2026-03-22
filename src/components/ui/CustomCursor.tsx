@@ -2,11 +2,17 @@
 import { useState, useEffect, useRef } from 'react';
 
 export default function CustomCursor() {
+  const [isTouch, setIsTouch] = useState(false);
   const [mounted, setMounted] = useState(false);
   const cursorDot = useRef<HTMLDivElement>(null);
   const cursorRing = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (navigator.maxTouchPoints > 0) {
+      setIsTouch(true);
+      return;
+    }
+
     setMounted(true);
     const moveCursor = (e: MouseEvent) => {
       if (cursorDot.current && cursorRing.current) {
@@ -18,7 +24,7 @@ export default function CustomCursor() {
     return () => window.removeEventListener('mousemove', moveCursor);
   }, []);
 
-  if (!mounted) return null;
+  if (!mounted || isTouch) return null;
 
   return (
     <>
