@@ -121,7 +121,9 @@ export default function BackgroundFX() {
        ctx.fillRect(0, Math.random() * canvas.height, canvas.width, 2);
     };
 
-    window.addEventListener('pointermove', handleMouseMove);
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('touchmove', (e) => handleMouseMove(e.touches[0]), { passive: true });
+    window.addEventListener('touchstart', (e) => handleMouseMove(e.touches[0]), { passive: true });
     window.addEventListener('mouseleave', handleMouseLeave);
     window.addEventListener('resize', handleResize);
     window.addEventListener('keydown', handleKeyDown);
@@ -131,7 +133,9 @@ export default function BackgroundFX() {
 
     return () => {
       cancelAnimationFrame(animationFrameId);
-      window.removeEventListener('pointermove', handleMouseMove);
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('touchmove', handleMouseMove);
+      window.removeEventListener('touchstart', handleMouseMove);
       window.removeEventListener('mouseleave', handleMouseLeave);
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('keydown', handleKeyDown);

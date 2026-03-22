@@ -99,11 +99,11 @@ export default function Advantages() {
       <div className="pl-4 md:pl-0">
         {/* CRITICAL FIX: 
           w-full + overflow-x-auto enables native touch panning.
-          touch-pan-y explicitly tells the browser to NOT trap vertical scrolling.
+          touch-auto explicitly tells the browser to NOT trap vertical scrolling.
         */}
         <div
           ref={sliderRef}
-          className="flex gap-6 md:gap-8 w-full md:w-[200vw] overflow-x-auto md:overflow-visible snap-x snap-mandatory touch-pan-y pr-4 md:pr-0 scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+          className="flex gap-6 md:gap-8 w-full md:w-[200vw] overflow-x-auto md:overflow-visible snap-x snap-mandatory touch-auto pr-4 md:pr-0 scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
         >
           {advantages.map((adv, i) => (
             <div
