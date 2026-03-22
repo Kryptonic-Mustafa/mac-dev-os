@@ -1,5 +1,19 @@
 import os
 import time
+from pathlib import Path
+
+PROJECT_PATH = Path.cwd()
+
+def print_status(message):
+    print(f"\n[🔄 M.A.C.DevOS Pipeline Upgrade] {message}...")
+    time.sleep(0.5)
+
+def upgrade_master_script():
+    print_status("Rewriting step57_backup_and_push.py to use the 'from_server' vault")
+    step57_path = PROJECT_PATH / "step57_backup_and_push.py"
+    
+    new_step57_content = """import os
+import time
 import subprocess
 import zipfile
 from datetime import datetime
@@ -10,7 +24,7 @@ PROJECT_PATH = Path.cwd()
 VAULT_DIR = PROJECT_PATH / "from_server"
 
 def print_status(message):
-    print(f"\n[📦 M.A.C.DevOS Version Control] {message}")
+    print(f"\\n[📦 M.A.C.DevOS Version Control] {message}")
     time.sleep(0.5)
 
 def run_git_command(command, error_message):
@@ -19,7 +33,7 @@ def run_git_command(command, error_message):
         print(f"  --> Success: {command}")
         return True
     except subprocess.CalledProcessError as e:
-        print(f"\n[ERROR] {error_message}\nDetails: {e.stderr.strip()}")
+        print(f"\\n[ERROR] {error_message}\\nDetails: {e.stderr.strip()}")
         return False
 
 def create_local_backup():
@@ -47,7 +61,7 @@ def create_local_backup():
         print(f"  --> Backup compressed and saved securely in /from_server.")
         return zip_filename
     except Exception as e:
-        print(f"\n[ERROR] Failed to create zip file: {e}")
+        print(f"\\n[ERROR] Failed to create zip file: {e}")
         return None
 
 def main():
@@ -69,9 +83,41 @@ def main():
     if run_git_command("git add .", "Failed to stage files."):
         if run_git_command(f'git commit -m "{commit_msg}"', "Failed to commit files."):
             if run_git_command("git push origin main", "Failed to push to remote."):
-                print("\n====================================================")
+                print("\\n====================================================")
                 print(" [SUCCESS] M.A.C.DevOS Matrix Successfully Deployed! ")
                 print("====================================================")
 
 if __name__ == "__main__":
     main()
+"""
+    with open(step57_path, "w", encoding="utf-8") as f:
+        f.write(new_step57_content)
+
+def upgrade_script_log():
+    print_status("Updating script.txt to reflect the new architecture")
+    script_txt_path = PROJECT_PATH / "script.txt"
+    
+    log_content = f"""====================================================
+      M.A.C.DevOS ESSENTIAL AUTOMATION SCRIPTS      
+====================================================
+Generated: {time.strftime("%Y-%m-%d %H:%M:%S")}
+
+----------------------------------------------------
+SCRIPT 1: MASTER DEPLOY & BACKUP (step57_backup_and_push.py)
+Description: Syncs with Git, zips a backup into the /from_server vault, and pushes to Vercel.
+----------------------------------------------------
+(See step57_backup_and_push.py for active code)
+
+----------------------------------------------------
+SCRIPT 2: THE SYSTEM SCANNER (generate_system_overview.py)
+Description: Crawls your project and generates system.txt for AI context.
+----------------------------------------------------
+(See generate_system_overview.py for active code)
+"""
+    with open(script_txt_path, "w", encoding="utf-8") as f:
+        f.write(log_content)
+
+if __name__ == "__main__":
+    upgrade_master_script()
+    upgrade_script_log()
+    print("\n[SUCCESS] Pipeline upgraded! Your backups will now safely route to /from_server.")

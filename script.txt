@@ -1,0 +1,16 @@
+====================================================
+      M.A.C.DevOS ESSENTIAL AUTOMATION SCRIPTS      
+====================================================
+Generated: 2026-03-22 14:04:07
+
+----------------------------------------------------
+SCRIPT 1: MASTER DEPLOY & BACKUP (step57_backup_and_push.py)
+Description: Syncs with Git, zips a backup into the /from_server vault, and pushes to Vercel.
+----------------------------------------------------
+(See step57_backup_and_push.py for active code)
+
+----------------------------------------------------
+SCRIPT 2: THE SYSTEM SCANNER (generate_system_overview.py)
+Description: Crawls your project and generates system.txt for AI context.
+----------------------------------------------------
+(See generate_system_overview.py for active code)
