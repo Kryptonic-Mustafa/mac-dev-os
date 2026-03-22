@@ -134,8 +134,8 @@ export default function BackgroundFX() {
     return () => {
       cancelAnimationFrame(animationFrameId);
       window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('touchmove', handleMouseMove);
-      window.removeEventListener('touchstart', handleMouseMove);
+      window.removeEventListener('touchmove', handleMouseMove as any);
+      window.removeEventListener('touchstart', handleMouseMove as any);
       window.removeEventListener('mouseleave', handleMouseLeave);
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('keydown', handleKeyDown);
