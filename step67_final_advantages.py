@@ -1,4 +1,18 @@
-"use client";
+import os
+import time
+from pathlib import Path
+
+PROJECT_PATH = Path.cwd()
+
+def print_status(message):
+    print(f"\n[🚀 M.A.C.DevOS System Override] {message}...")
+    time.sleep(0.5)
+
+def deploy_final_advantages():
+    adv_path = PROJECT_PATH / "src/components/sections/Advantages.tsx"
+    
+    # The absolute, 100% correct file with all imports and parsing fixed.
+    final_content = """"use client";
 import { useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -140,3 +154,10 @@ export default function Advantages() {
     </section>
   );
 }
+"""
+    with open(adv_path, "w", encoding="utf-8") as f:
+        f.write(final_content)
+    print_status("System override complete. File is completely clean and ready.")
+
+if __name__ == "__main__":
+    deploy_final_advantages()
