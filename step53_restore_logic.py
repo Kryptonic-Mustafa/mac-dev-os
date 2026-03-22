@@ -1,4 +1,19 @@
-"use client";
+import os
+import time
+from pathlib import Path
+
+PROJECT_PATH = Path.cwd()
+
+def print_status(message):
+    print(f"\n[🔄 M.A.C.DevOS True Restore] {message}...")
+    time.sleep(0.5)
+
+def final_system_restore():
+    print_status("Restoring Pure Neon Loader (with GSAP Safety Guard)")
+    loader_path = PROJECT_PATH / "src/components/ui/Loader.tsx"
+    
+    # FIX: Using triple quotes ensures Python handles the internal quotes correctly
+    loader_content = """"use client";
 import { useEffect, useState, useRef } from 'react';
 import gsap from 'gsap';
 import { MousePointer2, Terminal } from 'lucide-react';
@@ -89,7 +104,7 @@ export default function Loader({ onComplete }: { onComplete?: () => void }) {
           <div className="scrolling-terminal animate-matrix-slow absolute inset-0 text-emerald-500/30">
               {Array(20).fill(0).map((_, i) => (
                   <pre key={i} style={{ animationDelay: `${i * 0.3}s` }}>
-                      {`> Load Module [UI_Architecture] ... SUCCESS\n> Mount Filesystem [Projects] ... SUCCESS\n> Initialize Auth Matrix ... SUCCESS\n> Establishing Socket Link ... CONNECTED\n`}
+                      {`> Load Module [UI_Architecture] ... SUCCESS\\n> Mount Filesystem [Projects] ... SUCCESS\\n> Initialize Auth Matrix ... SUCCESS\\n> Establishing Socket Link ... CONNECTED\\n`}
                   </pre>
               ))}
           </div>
@@ -122,3 +137,10 @@ export default function Loader({ onComplete }: { onComplete?: () => void }) {
     </div>
   );
 }
+"""
+    with open(loader_path, "w", encoding="utf-8") as f:
+        f.write(loader_content)
+    print_status("Pure Neon Loader re-established and error-proofed.")
+
+if __name__ == "__main__":
+    final_system_restore()

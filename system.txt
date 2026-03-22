@@ -1,0 +1,203 @@
+====================================================
+           M.A.C.DevOS SYSTEM OVERVIEW              
+====================================================
+
+PROJECT AIM: M.A.C.DevOS: A high-fidelity, OS-styled developer portfolio mimicking a terminal/macOS interface.
+CORE ENGINE: Next.js 16.1.6 (Turbopack), Prisma ORM, TiDB Cloud (MySQL), GSAP (Animations), Tailwind CSS, Lucide Icons.
+
+--- SYSTEM ARCHITECTURE ---
+FRONTEND: Component-based architecture using Next.js App Router. Features a custom GSAP-powered 'Neon Dev Station' boot sequence and a custom interactive cursor.
+DATABASE: Relational database managed via TiDB Cloud. Tables: Admin (Auth), Project (Matrix Assets), Message (Comm Channel), SystemSettings.
+DEPLOYMENT: Vercel (CI/CD via GitHub)
+
+--- DIRECTORY MAP ---
+[FOLDER] mac-dev-os/
+    emergency_recovery.py
+    eslint.config.mjs
+    generate_system_overview.py
+    next-env.d.ts
+    next.config.ts
+    package-lock.json
+    package.json
+    patch_ui_fixes.py
+    postcss.config.mjs
+    README.md
+    seed_live_admin.js
+    step10_2_advantages_refine.py
+    step10_fix_overlap.py
+    step10_horizontal_matrix.py
+    step11_fix_icons.py
+    step11_system_reviews.py
+    step12_tech_stats_and_fixes.py
+    step13_contact_and_final_fix.py
+    step14_gmail_integration.py
+    step15_system_backup.py
+    step16_1_prisma7_patch.py
+    step16_2_classic_engine.py
+    step16_database_schema.py
+    step17_1_db_client_fix.py
+    step17_2_db_syntax.py
+    step17_3_silver_bullet.py
+    step17_4_deep_clean.py
+    step17_5_v5_downgrade.py
+    step17_admin_auth.py
+    step18_1_icon_fix.py
+    step18_admin_dashboard.py
+    step19_admin_full_suite.py
+    step20_master_control.py
+    step21_frontend_dynamic.py
+    step22_final_sync.py
+    step23_Dynamic_Social_Matrix_Update.py
+    step23_ui_sync.py
+    step24_global_polish.py
+    step25_1_layout_fix.py
+    step25_3_layout_restoration.py
+    step25_review_controller.py
+    step26_telemetry_sync.py
+    step27_emergency_sync.py
+    step28_break_the_loop.py
+    step28_review_force_sync.py
+    step29_project_edit_sync.py
+    step29_surgical_sync.py
+    step2_visual_system.py
+    step30_project_toast_fix.py
+    step31_async_fix.py
+    step32_cinematic_loader.py
+    step33_pc_boot_sequence.py
+    step34_literal_pc_loader.py
+    step35_neon_hackery_loader.py
+    step36_telemetry_upgrade.py
+    step37_frontend_fixes.py
+    step38_system_optimization.py
+    step39_rollback.py
+    step3_loader_system.py
+    step40_messages_async_fix.py
+    step41_ts_bypass.py
+    step42_loader_ts_fix.py
+    step43_forge_admin.py
+    step44_forge_admin_fix.py
+    step45_final_admin_forge.py
+    step46_matrix_ui_fix.py
+    step47_matrix_ts_fix.py
+    step48_mobile_overhaul.py
+    step49_cursor_import_fix.py
+    step4_hero_system.py
+    step50_hydration_fix.py
+    step51_loader_fix.py
+    step53_restore_logic.py
+    step5_fix_tailwind.py
+    step5_navbar_system.py
+    step6_architecture_system.py
+    step7_projects_system.py
+    step8_footer_system.py
+    step9_custom_loader.py
+    tsconfig.json
+    ui_step_interactive_fx.py
+    ui_step_transparency_patch.py
+    ui_step_true_transparent.py
+    [FOLDER] prisma/
+        schema.prisma
+    [FOLDER] public/
+        file.svg
+        globe.svg
+        next.svg
+        vercel.svg
+        window.svg
+        [FOLDER] uploads/
+    [FOLDER] src/
+        middleware.ts
+        [FOLDER] app/
+            favicon.ico
+            globals.css
+            layout.tsx
+            page.tsx
+            [FOLDER] admin/
+                layout.tsx
+                [FOLDER] dashboard/
+                    DashboardUI.tsx
+                    page.tsx
+                [FOLDER] login/
+                    page.tsx
+                [FOLDER] messages/
+                    MessagesUI.tsx
+                    page.tsx
+                [FOLDER] projects/
+                    page.tsx
+                    ProjectsUI.tsx
+                [FOLDER] reviews/
+                    page.tsx
+                    ReviewsUI.tsx
+                [FOLDER] settings/
+                    page.tsx
+                    SettingsUI.tsx
+            [FOLDER] api/
+                [FOLDER] admin/
+                    [FOLDER] login/
+                        route.ts
+                    [FOLDER] logout/
+                        route.ts
+                    [FOLDER] messages/
+                        [FOLDER] [id]/
+                            route.ts
+                    [FOLDER] projects/
+                        route.ts
+                        [FOLDER] [id]/
+                            route.ts
+                    [FOLDER] reviews/
+                        route.ts
+                        [FOLDER] [id]/
+                            route.ts
+                    [FOLDER] settings/
+                        route.ts
+                    [FOLDER] setup/
+                        route.ts
+                    [FOLDER] upload/
+                        route.ts
+                [FOLDER] contact/
+                    route.ts
+        [FOLDER] assets/
+            [FOLDER] images/
+            [FOLDER] videos/
+        [FOLDER] components/
+            [FOLDER] layout/
+                BootSequence.tsx
+                Footer.tsx
+                Navbar.tsx
+            [FOLDER] sections/
+                Advantages.tsx
+                Architecture.tsx
+                Contact.tsx
+                Hero.tsx
+                Projects.tsx
+                Reviews.tsx
+                TechStack.tsx
+            [FOLDER] ui/
+                BackgroundFX.tsx
+                CustomCursor.tsx
+                Loader.tsx
+        [FOLDER] config/
+            theme.tokens.ts
+            visual.config.ts
+        [FOLDER] lib/
+            db.ts
+            [FOLDER] animations/
+            [FOLDER] storage/
+                visualStorage.ts
+        [FOLDER] types/
+
+--- KEY COMPONENT BREAKDOWN ---
+- src/app/admin: The Restricted Command Center (Login/Dashboard/Settings).
+- src/app/api: Serverless endpoints for DB interaction and Gmail transmission.
+- src/components/ui: High-fidelity interactive elements (CustomCursor, Loader).
+- prisma/schema.prisma: The master database blueprint.
+
+--- DEPLOYMENT COMMANDS ---
+Build: npx prisma generate && npx prisma db push && next build
+Local Dev: npm run dev
+
+--- REQUIRED ENVIRONMENT VARIABLES ---
+DATABASE_URL="mysql://..." (TiDB Connection)
+EMAIL_USER="your-email@gmail.com" (For Contact Form)
+EMAIL_PASS="your-app-password" (For Contact Form)
+
+[END OF SYSTEM LOG]
