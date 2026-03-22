@@ -28,7 +28,6 @@ export default function Advantages() {
     // DESKTOP ONLY: Cinematic ScrollTrigger
     mm.add("(min-width: 768px)", () => {
       let sections = gsap.utils.toArray(".adv-card");
-      const totalWidth = sliderRef.current?.offsetWidth || 0;
       
       gsap.to(sections, {
         xPercent: -100 * (sections.length - 1),
@@ -36,9 +35,12 @@ export default function Advantages() {
         scrollTrigger: {
           trigger: containerRef.current,
           pin: true,
+          pinSpacing: true, // Strictly enforces the spacer to push next sections down
           scrub: 1,
           snap: 1 / (sections.length - 1),
-          end: () => "+=" + totalWidth,
+          // Dynamically grab the true scroll width to prevent math errors
+          end: () => "+=" + (sliderRef.current?.scrollWidth || window.innerWidth),
+          invalidateOnRefresh: true, // Recalculate spacer if layout shifts
           onUpdate: (self) => setProgress(Math.round(self.progress * 100))
         }
       });
@@ -70,7 +72,7 @@ export default function Advantages() {
   }, { scope: containerRef });
 
   return (
-    <section ref={containerRef} className="py-20 bg-background text-foreground overflow-hidden">
+    <section ref={containerRef} className="py-20 bg-background text-foreground overflow-hidden relative z-30">
       <div className="container mx-auto px-4 mb-6">
         <h2 className="text-sm font-mono text-primary mb-2 uppercase tracking-widest flex items-center gap-2">
           <span className="w-8 h-[1px] bg-primary"></span> System Advantages
