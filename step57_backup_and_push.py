@@ -6,7 +6,6 @@ from datetime import datetime
 from pathlib import Path
 
 PROJECT_PATH = Path.cwd()
-# Define the new secure vault directory
 VAULT_DIR = PROJECT_PATH / "from_server"
 
 def print_status(message):
@@ -23,7 +22,6 @@ def run_git_command(command, error_message):
         return False
 
 def create_local_backup():
-    # Ensure the vault directory exists
     if not VAULT_DIR.exists():
         VAULT_DIR.mkdir()
         print(f"  --> Created new secure vault: {VAULT_DIR.name}/")
@@ -31,16 +29,19 @@ def create_local_backup():
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     zip_filename = VAULT_DIR / f"mac-dev-os_sync_{timestamp}.zip"
     
-    # Ignore heavy folders and backup vaults
+    # 🚨 SECURITY LOCKDOWN: Explicitly ignoring sensitive files and vaults
     ignore_dirs = {'.git', 'node_modules', '.next', '.vercel', '__pycache__', 'bkp', 'from_server'}
+    ignore_files = {'.env', '.env.local'}
     
     print_status(f"Compressing current Matrix into: from_server/{zip_filename.name}...")
     try:
         with zipfile.ZipFile(zip_filename, 'w', zipfile.ZIP_DEFLATED) as zipf:
             for root, dirs, files in os.walk(PROJECT_PATH):
+                # Filter out ignored directories
                 dirs[:] = [d for d in dirs if d not in ignore_dirs]
                 for file in files:
-                    if not file.endswith('.zip'):
+                    # Filter out ignored files and don't zip other zip files
+                    if file not in ignore_files and not file.endswith('.zip'):
                         file_path = os.path.join(root, file)
                         arcname = os.path.relpath(file_path, PROJECT_PATH)
                         zipf.write(file_path, arcname)
@@ -52,7 +53,7 @@ def create_local_backup():
 
 def main():
     print("====================================================")
-    print("      INITIATING BACKUP & DEPLOYMENT PROTOCOL       ")
+    print("      INITIATING SECURE BACKUP & DEPLOYMENT         ")
     print("====================================================")
     
     print_status("Phase 1: Syncing with remote repository (git pull)")
