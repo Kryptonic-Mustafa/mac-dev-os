@@ -5,7 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 import { Zap, Activity, Shield, Cpu, ArrowRight } from 'lucide-react';
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, Observer);
 
 export default function Advantages() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -58,7 +58,7 @@ export default function Advantages() {
       let targetX = 0;
 
       // Handle the touch/drag movement
-      gsap.addObserver({
+      Observer.create({
         target: containerRef.current,
         type: "touch,pointer",
         onChangeX: (self) => {
