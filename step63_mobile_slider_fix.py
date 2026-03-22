@@ -1,4 +1,20 @@
-"use client";
+import os
+import time
+from pathlib import Path
+
+PROJECT_PATH = Path.cwd()
+
+def print_status(message):
+    print(f"\n[📱 M.A.C.DevOS Touch UI] {message}...")
+    time.sleep(0.5)
+
+def deploy_mobile_touch_fix():
+    print_status("Hardening Advantages.tsx with GSAP Observer touch binding and custom scroll UI")
+    adv_path = PROJECT_PATH / "src/components/sections/Advantages.tsx"
+    
+    if adv_path.exists():
+        # We are completely rewriting this file to implement the custom indicator and Observer logic.
+        adv_content = """"use client";
 import { useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -73,7 +89,7 @@ export default function Advantages() {
             duration: 0.5,
             overwrite: 'auto',
             onUpdate: () => {
-              const currentProgress = gsap.utils.normalize(0, -maxScroll, sliderRef.current?.style.transform.match(/translate\(([-\d.]+)/)?.[1] || 0);
+              const currentProgress = gsap.utils.normalize(0, -maxScroll, sliderRef.current?.style.transform.match(/translate\(([-\\d.]+)/)?.[1] || 0);
               setProgress(Math.round(currentProgress * 100));
             }
           });
@@ -148,3 +164,12 @@ export default function Advantages() {
     </section>
   );
 }
+"""
+        with open(adv_path, "w", encoding="utf-8") as f:
+            f.write(adv_content)
+        print_status("Custom touch events and scroll progress UI successfully implemented.")
+    else:
+        print_status("Error: Advantages.tsx not found.")
+
+if __name__ == "__main__":
+    deploy_mobile_touch_fix()
